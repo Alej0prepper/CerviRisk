@@ -5,68 +5,87 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <section className={styles.hero}>
-          <p className={styles.tag}>CerviRisk | Clinical Risk Engine</p>
-          <h1>Motor digital de estratificacion de riesgo cervicouterino</h1>
-          <p className={styles.lead}>
-            Plataforma para transformar variables clinicas, conductuales,
-            virales y antropometricas en un puntaje acumulativo y una categoria
-            de riesgo util para decision clinica.
-          </p>
-          <div className={styles.badges}>
-            <span>Triage digital</span>
-            <span>Modelo adaptable</span>
-            <span>Escenarios de bajos recursos</span>
+        <header className={styles.hero}>
+          <div className={styles.headerLine}>
+            <p className={styles.tag}>CerviRisk</p>
+            <p className={styles.context}>Estudio de estratificacion clinica</p>
           </div>
-          <Link className={styles.testButton} href="/test">
-            Hacer test
-          </Link>
+          <h1>Evaluacion digital de riesgo cervicouterino con enfoque clinico</h1>
+          <p className={styles.lead}>
+            Sistema de apoyo para estimar riesgo de lesiones intraepiteliales
+            escamosas de alto grado mediante integracion de variables
+            epidemiologicas, conductuales, virologicas y antropometricas.
+          </p>
+          <div className={styles.heroActions}>
+            <Link className={styles.primaryButton} href="/test">
+              Iniciar evaluacion
+            </Link>
+            <a className={styles.ghostButton} href="#metodologia">
+              Ver metodologia
+            </a>
+          </div>
+        </header>
+
+        <section className={styles.metrics} aria-label="Resumen del modelo">
+          <article>
+            <p className={styles.metricValue}>10</p>
+            <p className={styles.metricLabel}>Variables evaluadas</p>
+          </article>
+          <article>
+            <p className={styles.metricValue}>3</p>
+            <p className={styles.metricLabel}>Categorias de riesgo</p>
+          </article>
+          <article>
+            <p className={styles.metricValue}>1</p>
+            <p className={styles.metricLabel}>Puntaje acumulativo</p>
+          </article>
         </section>
 
-        <section className={styles.flow}>
-          <h2>Flujo de evaluacion</h2>
+        <section id="metodologia" className={styles.flow}>
+          <h2>Ruta metodologica de evaluacion</h2>
           <ol>
-            <li>Ingreso de variables del paciente</li>
-            <li>Suma ponderada automatizada</li>
-            <li>Clasificacion de riesgo: bajo, intermedio, alto</li>
-            <li>Soporte para decision y priorizacion clinica</li>
+            <li>Registro estructurado de datos clinicos y antecedentes.</li>
+            <li>Asignacion de pesos segun nivel de asociacion reportado.</li>
+            <li>Calculo automatizado de puntaje acumulativo de riesgo.</li>
+            <li>Clasificacion final y orientacion para priorizacion clinica.</li>
           </ol>
         </section>
 
         <section className={styles.grid}>
           <article className={styles.card}>
-            <h2>Que es</h2>
+            <h2>Objetivo</h2>
             <p>
-              Una herramienta automatizada orientada a detectar riesgo de
-              lesiones intraepiteliales escamosas cervicouterinas, con foco en
-              LIEAG.
+              Fortalecer el tamizaje cervicouterino con una herramienta
+              reproducible para identificar perfiles de mayor probabilidad de
+              lesion de alto grado.
             </p>
           </article>
           <article className={styles.card}>
-            <h2>Como funciona</h2>
+            <h2>Uso previsto</h2>
             <p>
-              El usuario carga datos del paciente, el sistema suma puntos
-              ponderados y entrega riesgo bajo, intermedio o alto.
+              Asistencia a personal de salud para organizar decisiones de
+              seguimiento, derivacion y vigilancia en contextos clinicos
+              diversos.
             </p>
           </article>
           <article className={styles.card}>
-            <h2>Enfoque actual</h2>
+            <h2>Base del modelo</h2>
             <p>
-              Score heuristico basado en evidencia epidemiologica y hallazgos
-              estadisticos preliminares.
+              Score heuristico sustentado en literatura epidemiologica y
+              resultados estadisticos preliminares de la cohorte en estudio.
             </p>
           </article>
           <article className={styles.card}>
-            <h2>Escalabilidad</h2>
+            <h2>Aplicabilidad</h2>
             <p>
-              Disenado para ajustarse a contextos clinicos diversos, incluyendo
-              escenarios de bajos recursos.
+              Diseno portable para instituciones con recursos heterogeneos,
+              incluyendo escenarios de primer nivel de atencion.
             </p>
           </article>
         </section>
 
         <section className={styles.block}>
-          <h2>Variables actualmente contempladas</h2>
+          <h2>Variables incluidas en el puntaje actual</h2>
           <ul className={styles.list}>
             <li>Edad</li>
             <li>Inicio precoz de relaciones sexuales</li>
@@ -82,11 +101,11 @@ export default function Home() {
         </section>
 
         <section className={styles.block}>
-          <h2>Estado del modelo</h2>
+          <h2>Consideraciones de validacion</h2>
           <p>
-            Los pesos no son definitivos: pueden recalibrarse segun validacion
-            clinica, analisis estadisticos adicionales, desempeno predictivo,
-            disponibilidad de datos y contexto especifico de implementacion.
+            Los pesos asignados son dinamicos y sujetos a recalibracion tras
+            nuevas rondas de validacion clinica, analisis de desempeno y
+            evaluacion de utilidad operacional.
           </p>
         </section>
       </main>
