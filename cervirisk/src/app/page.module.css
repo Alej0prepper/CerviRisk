@@ -100,6 +100,23 @@
   font-size: 0.83rem;
 }
 
+.testButton {
+  width: fit-content;
+  margin-top: 8px;
+  border: 1px solid #0f6078;
+  background: linear-gradient(120deg, #0f6078, #1691ad);
+  color: #fff;
+  padding: 11px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.testButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(15, 96, 120, 0.35);
+}
+
 .flow {
   position: relative;
   z-index: 1;

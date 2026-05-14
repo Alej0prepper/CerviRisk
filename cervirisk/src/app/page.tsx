@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -17,6 +18,9 @@ export default function Home() {
             <span>Modelo adaptable</span>
             <span>Escenarios de bajos recursos</span>
           </div>
+          <Link className={styles.testButton} href="/test">
+            Hacer test
+          </Link>
         </section>
 
         <section className={styles.flow}>
