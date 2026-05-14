@@ -1,0 +1,216 @@
+.page {
+  --bg: #eef6f8;
+  --bg-soft: #f8fcfd;
+  --line: #b7d4dd;
+  --card-border: #bdd8df;
+  --text-primary: #0d2e3a;
+  --text-secondary: #325a69;
+  --accent: #bd2f52;
+  --ok: #158f79;
+
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  font-family: var(--font-geist-sans);
+  background:
+    radial-gradient(circle at 10% 0%, #dff1f6 0%, transparent 35%),
+    radial-gradient(circle at 100% 20%, #f8dce4 0%, transparent 30%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+}
+
+.main {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1100px;
+  margin: 36px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(252, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 26px 70px rgba(16, 63, 78, 0.13);
+  padding: 42px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 26px,
+      rgba(44, 113, 134, 0.05) 26px 27px
+    ),
+    linear-gradient(90deg, transparent 0 3%, rgba(44, 113, 134, 0.09) 3% 4%, transparent 4% 100%);
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 1;
+}
+
+.tag {
+  width: fit-content;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(100deg, #0f6078, #137b93);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.lead {
+  max-width: 780px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.badges span {
+  border: 1px solid var(--card-border);
+  background: #f3fbfe;
+  color: #1e5668;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 0.83rem;
+}
+
+.flow {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #ffffffd4, #f2fbfedb);
+  padding: 20px;
+}
+
+.flow h2 {
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.flow ol {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.flow li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.flow li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #7ce5d4 0 25%, var(--ok) 26% 100%);
+  box-shadow: 0 0 0 3px rgba(21, 143, 121, 0.18);
+}
+
+.grid {
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card,
+.block {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+  background: #ffffffde;
+  padding: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 0 6px rgba(21, 143, 121, 0.14);
+}
+
+.card h2,
+.block h2 {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.card p,
+.block p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.list {
+  list-style: square;
+  padding-left: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 22px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .main {
+    margin: 18px;
+    padding: 24px;
+  }
+
+  .grid,
+  .list,
+  .flow ol {
+    grid-template-columns: 1fr;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+}
