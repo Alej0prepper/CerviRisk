@@ -2,11 +2,12 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { calculateRiskScore } from "@/lib/riskScore";
+import { calculateRiskScore, hasExcesoAdiposidad } from "@/lib/riskScore";
 import styles from "./test.module.css";
 
 export default function TestPage() {
   const [score, setScore] = useState<number | null>(null);
+  const [adiposidadDetected, setAdiposidadDetected] = useState<boolean | null>(null);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -22,18 +23,29 @@ export default function TestPage() {
       acoProlongado: (form.get("acoProlongado") as "si" | "no" | "") ?? "",
       partos: (form.get("partos") as "gt3" | "lte3" | "") ?? "",
       pvh1618: (form.get("pvh1618") as "positivo" | "negativo" | "") ?? "",
-      adiposidad: (form.get("adiposidad") as "si" | "no" | "") ?? "",
+      imc: Number(form.get("imc") ?? 0),
+      cinturaCm: Number(form.get("cinturaCm") ?? 0),
+      icc: Number(form.get("icc") ?? 0),
+      ict: Number(form.get("ict") ?? 0),
     });
 
     setScore(total);
+    setAdiposidadDetected(
+      hasExcesoAdiposidad({
+        imc: Number(form.get("imc") ?? 0),
+        cinturaCm: Number(form.get("cinturaCm") ?? 0),
+        icc: Number(form.get("icc") ?? 0),
+        ict: Number(form.get("ict") ?? 0),
+      }),
+    );
   }
 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <header className={styles.header}>
-          <p className={styles.tag}>CerviRisk | Evaluacion</p>
-          <h1>Formulario de seleccion de criterios</h1>
+          <p className={styles.tag}>CerviRisk | Evaluación</p>
+          <h1>Formulario de selección de criterios</h1>
           <p>
             Esta pantalla captura variables para el score preliminar de riesgo.
           </p>
@@ -54,16 +66,16 @@ export default function TestPage() {
               Edad de inicio de relaciones sexuales &lt; 15
               <select name="inicioPrecoz">
                 <option value="">Seleccionar</option>
-                <option value="si">Si</option>
+                <option value="si">Sí</option>
                 <option value="no">No</option>
               </select>
             </label>
 
             <label>
-              Numero de parejas sexuales &gt; 5
+              Número de parejas sexuales &gt; 5
               <select name="numeroParejas">
                 <option value="">Seleccionar</option>
-                <option value="gt5">Si</option>
+                <option value="gt5">Sí</option>
                 <option value="lte5">No</option>
               </select>
             </label>
@@ -72,16 +84,16 @@ export default function TestPage() {
               Sexo no protegido frecuente
               <select name="sexoNoProtegido">
                 <option value="">Seleccionar</option>
-                <option value="si">Si</option>
+                <option value="si">Sí</option>
                 <option value="no">No</option>
               </select>
             </label>
 
             <label>
-              Antecedentes de ITS
+              Antecedentes de ITS (infecciones de transmisión sexual)
               <select name="its">
                 <option value="">Seleccionar</option>
-                <option value="si">Si</option>
+                <option value="si">Sí</option>
                 <option value="no">No</option>
               </select>
             </label>
@@ -90,48 +102,68 @@ export default function TestPage() {
               Tabaquismo actual o previo
               <select name="tabaquismo">
                 <option value="">Seleccionar</option>
-                <option value="si">Si</option>
+                <option value="si">Sí</option>
                 <option value="no">No</option>
               </select>
             </label>
 
             <label>
-              Uso de anticonceptivos orales &gt; 5 annos
+              Uso de anticonceptivos orales &gt; 5 años
               <select name="acoProlongado">
                 <option value="">Seleccionar</option>
-                <option value="si">Si</option>
+                <option value="si">Sí</option>
                 <option value="no">No</option>
               </select>
             </label>
           </section>
 
           <section className={styles.section}>
-            <h2>Factores clinicos y biologicos</h2>
+            <h2>Factores clínicos y biológicos</h2>
             <label>
-              Numero de partos &gt; 3
+              Número de partos &gt; 3
               <select name="partos">
                 <option value="">Seleccionar</option>
-                <option value="gt3">Si</option>
+                <option value="gt3">Sí</option>
                 <option value="lte3">No</option>
               </select>
             </label>
 
             <label>
-              Estado PVH 16/18
+              Estado PVH 16/18 (virus del papiloma humano, genotipos 16 y 18)
               <select name="pvh1618">
                 <option value="">Seleccionar</option>
                 <option value="positivo">Positivo</option>
                 <option value="negativo">Negativo</option>
               </select>
             </label>
+          </section>
+
+          <section className={styles.section}>
+            <h2>Cálculo de exceso de adiposidad</h2>
+            <p className={styles.criteriaText}>
+              Se suma +2 si IMC (índice de masa corporal) &gt; 40, o si IMC
+              &gt;= 30 y además cumple al menos uno: cintura &gt;= 80 cm, ICC
+              (índice cintura-cadera) &gt;= 0.85, ICT (índice
+              cintura-talla) &gt;= 0.5.
+            </p>
+            <label>
+              IMC (índice de masa corporal, kg/m²)
+              <input type="number" step="0.1" min={0} name="imc" placeholder="Ej. 31.4" />
+            </label>
 
             <label>
-              Exceso de adiposidad
-              <select name="adiposidad">
-                <option value="">Seleccionar</option>
-                <option value="si">Si</option>
-                <option value="no">No</option>
-              </select>
+              Perímetro de cintura (cm)
+              <input type="number" step="0.1" min={0} name="cinturaCm" placeholder="Ej. 84" />
+            </label>
+
+            <label>
+              ICC (índice cintura-cadera)
+              <input type="number" step="0.01" min={0} name="icc" placeholder="Ej. 0.87" />
+            </label>
+
+            <label>
+              ICT (índice cintura-talla)
+              <input type="number" step="0.01" min={0} name="ict" placeholder="Ej. 0.52" />
             </label>
           </section>
 
@@ -142,7 +174,10 @@ export default function TestPage() {
         </form>
 
         {score !== null ? (
-          <p className={styles.result}>Tienes {score} puntos.</p>
+          <p className={styles.result}>
+            Tienes {score} puntos. Exceso de adiposidad:{" "}
+            {adiposidadDetected ? "sí (suma +2)" : "no (suma 0)"}.
+          </p>
         ) : null}
       </main>
     </div>

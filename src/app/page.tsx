@@ -8,20 +8,20 @@ export default function Home() {
         <header className={styles.hero}>
           <div className={styles.headerLine}>
             <p className={styles.tag}>CerviRisk</p>
-            <p className={styles.context}>Estudio de estratificacion clinica</p>
+            <p className={styles.context}>Estudio de estratificación clínica</p>
           </div>
-          <h1>Evaluacion digital de riesgo cervicouterino con enfoque clinico</h1>
+          <h1>Evaluación digital de riesgo cervicouterino con enfoque clínico</h1>
           <p className={styles.lead}>
             Sistema de apoyo para estimar riesgo de lesiones intraepiteliales
-            escamosas de alto grado mediante integracion de variables
-            epidemiologicas, conductuales, virologicas y antropometricas.
+            escamosas de alto grado mediante integración de variables
+            epidemiológicas, conductuales, virológicas y antropométricas.
           </p>
           <div className={styles.heroActions}>
             <Link className={styles.primaryButton} href="/test">
-              Iniciar evaluacion
+              Iniciar evaluación
             </Link>
             <a className={styles.ghostButton} href="#metodologia">
-              Ver metodologia
+              Ver metodología
             </a>
           </div>
         </header>
@@ -33,7 +33,7 @@ export default function Home() {
           </article>
           <article>
             <p className={styles.metricValue}>3</p>
-            <p className={styles.metricLabel}>Categorias de riesgo</p>
+            <p className={styles.metricLabel}>Categorías de riesgo</p>
           </article>
           <article>
             <p className={styles.metricValue}>1</p>
@@ -42,12 +42,12 @@ export default function Home() {
         </section>
 
         <section id="metodologia" className={styles.flow}>
-          <h2>Ruta metodologica de evaluacion</h2>
+          <h2>Ruta metodológica de evaluación</h2>
           <ol>
-            <li>Registro estructurado de datos clinicos y antecedentes.</li>
-            <li>Asignacion de pesos segun nivel de asociacion reportado.</li>
-            <li>Calculo automatizado de puntaje acumulativo de riesgo.</li>
-            <li>Clasificacion final y orientacion para priorizacion clinica.</li>
+            <li>Registro estructurado de datos clínicos y antecedentes.</li>
+            <li>Asignación de pesos según nivel de asociación reportado.</li>
+            <li>Cálculo automatizado de puntaje acumulativo de riesgo.</li>
+            <li>Clasificación final y orientación para priorización clínica.</li>
           </ol>
         </section>
 
@@ -57,29 +57,29 @@ export default function Home() {
             <p>
               Fortalecer el tamizaje cervicouterino con una herramienta
               reproducible para identificar perfiles de mayor probabilidad de
-              lesion de alto grado.
+              lesión de alto grado.
             </p>
           </article>
           <article className={styles.card}>
             <h2>Uso previsto</h2>
             <p>
               Asistencia a personal de salud para organizar decisiones de
-              seguimiento, derivacion y vigilancia en contextos clinicos
+              seguimiento, derivación y vigilancia en contextos clínicos
               diversos.
             </p>
           </article>
           <article className={styles.card}>
             <h2>Base del modelo</h2>
             <p>
-              Score heuristico sustentado en literatura epidemiologica y
-              resultados estadisticos preliminares de la cohorte en estudio.
+              Score heurístico sustentado en literatura epidemiológica y
+              resultados estadísticos preliminares de la cohorte en estudio.
             </p>
           </article>
           <article className={styles.card}>
             <h2>Aplicabilidad</h2>
             <p>
-              Diseno portable para instituciones con recursos heterogeneos,
-              incluyendo escenarios de primer nivel de atencion.
+              Diseño portable para instituciones con recursos heterogéneos,
+              incluyendo escenarios de primer nivel de atención.
             </p>
           </article>
         </section>
@@ -89,7 +89,7 @@ export default function Home() {
           <ul className={styles.list}>
             <li>Edad</li>
             <li>Inicio precoz de relaciones sexuales</li>
-            <li>Numero de parejas</li>
+            <li>Número de parejas</li>
             <li>Sexo no protegido</li>
             <li>Antecedentes de ITS</li>
             <li>Tabaquismo</li>
@@ -101,11 +101,11 @@ export default function Home() {
         </section>
 
         <section className={styles.block}>
-          <h2>Consideraciones de validacion</h2>
+          <h2>Consideraciones de validación</h2>
           <p>
-            Los pesos asignados son dinamicos y sujetos a recalibracion tras
-            nuevas rondas de validacion clinica, analisis de desempeno y
-            evaluacion de utilidad operacional.
+            Los pesos asignados son dinámicos y sujetos a recalibración tras
+            nuevas rondas de validación clínica, análisis de desempeño y
+            evaluación de utilidad operacional.
           </p>
         </section>
       </main>
