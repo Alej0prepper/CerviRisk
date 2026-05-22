@@ -109,6 +109,17 @@
   background: #ecf8fc;
 }
 
+.result {
+  margin-top: 18px;
+  border: 1px solid #b2d5df;
+  background: #eefafe;
+  color: #0d2e3a;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
 @media (max-width: 800px) {
   .page {
     padding: 14px;

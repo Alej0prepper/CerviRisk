@@ -1,7 +1,33 @@
+"use client";
+
+import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { calculateRiskScore } from "@/lib/riskScore";
 import styles from "./test.module.css";
 
 export default function TestPage() {
+  const [score, setScore] = useState<number | null>(null);
+
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+
+    const total = calculateRiskScore({
+      edad: Number(form.get("edad") ?? 0),
+      inicioPrecoz: (form.get("inicioPrecoz") as "si" | "no" | "") ?? "",
+      numeroParejas: (form.get("numeroParejas") as "gt5" | "lte5" | "") ?? "",
+      sexoNoProtegido: (form.get("sexoNoProtegido") as "si" | "no" | "") ?? "",
+      its: (form.get("its") as "si" | "no" | "") ?? "",
+      tabaquismo: (form.get("tabaquismo") as "si" | "no" | "") ?? "",
+      acoProlongado: (form.get("acoProlongado") as "si" | "no" | "") ?? "",
+      partos: (form.get("partos") as "gt3" | "lte3" | "") ?? "",
+      pvh1618: (form.get("pvh1618") as "positivo" | "negativo" | "") ?? "",
+      adiposidad: (form.get("adiposidad") as "si" | "no" | "") ?? "",
+    });
+
+    setScore(total);
+  }
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -13,7 +39,7 @@ export default function TestPage() {
           </p>
         </header>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={onSubmit}>
           <section className={styles.section}>
             <h2>Datos generales</h2>
             <label>
@@ -25,7 +51,7 @@ export default function TestPage() {
           <section className={styles.section}>
             <h2>Factores conductuales y antecedentes</h2>
             <label>
-              Inicio precoz de relaciones sexuales
+              Edad de inicio de relaciones sexuales &lt; 15
               <select name="inicioPrecoz">
                 <option value="">Seleccionar</option>
                 <option value="si">Si</option>
@@ -34,12 +60,11 @@ export default function TestPage() {
             </label>
 
             <label>
-              Numero de parejas sexuales
+              Numero de parejas sexuales &gt; 5
               <select name="numeroParejas">
                 <option value="">Seleccionar</option>
-                <option value="1">1</option>
-                <option value="2-3">2-3</option>
-                <option value=">=4">4 o mas</option>
+                <option value="gt5">Si</option>
+                <option value="lte5">No</option>
               </select>
             </label>
 
@@ -71,7 +96,7 @@ export default function TestPage() {
             </label>
 
             <label>
-              Uso prolongado de anticonceptivos orales
+              Uso de anticonceptivos orales &gt; 5 annos
               <select name="acoProlongado">
                 <option value="">Seleccionar</option>
                 <option value="si">Si</option>
@@ -83,12 +108,11 @@ export default function TestPage() {
           <section className={styles.section}>
             <h2>Factores clinicos y biologicos</h2>
             <label>
-              Paridad
-              <select name="paridad">
+              Numero de partos &gt; 3
+              <select name="partos">
                 <option value="">Seleccionar</option>
-                <option value="0">0</option>
-                <option value="1-2">1-2</option>
-                <option value=">=3">3 o mas</option>
+                <option value="gt3">Si</option>
+                <option value="lte3">No</option>
               </select>
             </label>
 
@@ -98,7 +122,6 @@ export default function TestPage() {
                 <option value="">Seleccionar</option>
                 <option value="positivo">Positivo</option>
                 <option value="negativo">Negativo</option>
-                <option value="desconocido">Desconocido</option>
               </select>
             </label>
 
@@ -117,6 +140,10 @@ export default function TestPage() {
             <Link href="/">Volver al overview</Link>
           </div>
         </form>
+
+        {score !== null ? (
+          <p className={styles.result}>Tienes {score} puntos.</p>
+        ) : null}
       </main>
     </div>
   );
