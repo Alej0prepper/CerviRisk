@@ -169,11 +169,28 @@
 
 .unlockedSection h2 {
   color: #0d2e3a;
-  margin-bottom: 8px;
 }
 
 .unlockedSection p {
   color: #325a69;
+}
+
+.unlockedSection label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #204b5a;
+  font-size: 0.95rem;
+}
+
+.unlockedSection input,
+.unlockedSection select {
+  border: 1px solid #b1ced7;
+  border-radius: 10px;
+  height: 40px;
+  padding: 0 10px;
+  color: #133643;
+  background: #fff;
 }
 
 .lockedSection {
@@ -191,6 +208,13 @@
 
 .lockedSection p {
   color: #6a7f88;
+}
+
+.lockedSection select:disabled,
+.lockedSection input:disabled {
+  background: #eef2f4;
+  color: #7a8d97;
+  cursor: not-allowed;
 }
 
 .actions button,

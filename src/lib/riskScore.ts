@@ -9,6 +9,9 @@ export const riskPointRules = {
   partosMayores3: 1,
   pvh1618Positivo: 9,
   excesoAdiposidadSi: 2,
+  itsLabAltoRecursoSi: 2,
+  resistenciaInsulinaAltoRecursoSi: 2,
+  dislipidemiaAltoRecursoSi: 2,
 } as const;
 
 export type RiskInput = {
@@ -17,6 +20,7 @@ export type RiskInput = {
   numeroParejas: "gt5" | "lte5" | "";
   sexoNoProtegido: "si" | "no" | "";
   its: "si" | "no" | "";
+  itsExposicionOLab: "si" | "no" | "";
   tabaquismo: "si" | "no" | "";
   acoProlongado: "si" | "no" | "";
   partos: "gt3" | "lte3" | "";
@@ -25,6 +29,9 @@ export type RiskInput = {
   cinturaCm: number;
   icc: number;
   ict: number;
+  resistenciaInsulina: "si" | "no" | "";
+  dislipidemia: "si" | "no" | "";
+  useHighResourceVariables: boolean;
 };
 
 export function hasExcesoAdiposidad(input: Pick<RiskInput, "imc" | "cinturaCm" | "icc" | "ict">): boolean {
@@ -47,6 +54,16 @@ export function calculateRiskScore(input: RiskInput): number {
   if (input.partos === "gt3") total += riskPointRules.partosMayores3;
   if (input.pvh1618 === "positivo") total += riskPointRules.pvh1618Positivo;
   if (hasExcesoAdiposidad(input)) total += riskPointRules.excesoAdiposidadSi;
+
+  if (input.useHighResourceVariables && input.itsExposicionOLab === "si") {
+    total += riskPointRules.itsLabAltoRecursoSi;
+  }
+  if (input.useHighResourceVariables && input.resistenciaInsulina === "si") {
+    total += riskPointRules.resistenciaInsulinaAltoRecursoSi;
+  }
+  if (input.useHighResourceVariables && input.dislipidemia === "si") {
+    total += riskPointRules.dislipidemiaAltoRecursoSi;
+  }
 
   return total;
 }

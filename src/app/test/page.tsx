@@ -9,10 +9,13 @@ export default function TestPage() {
   const [score, setScore] = useState<number | null>(null);
   const [adiposidadDetected, setAdiposidadDetected] = useState<boolean | null>(null);
   const [hasFacilidades, setHasFacilidades] = useState(false);
+  const baseMaxScore = 20;
+  const highResourceExtraMaxScore = 6;
 
-  function getRiskLevel(points: number): string {
-    if (points <= 10) return "bajo riesgo";
-    if (points <= 15) return "riesgo medio";
+  function getRiskLevel(points: number, useHighResourceScale: boolean): string {
+    const scaleShift = useHighResourceScale ? highResourceExtraMaxScore : 0;
+    if (points <= 10 + scaleShift) return "bajo riesgo";
+    if (points <= 15 + scaleShift) return "riesgo medio";
     return "alto riesgo";
   }
 
@@ -26,6 +29,7 @@ export default function TestPage() {
       numeroParejas: (form.get("numeroParejas") as "gt5" | "lte5" | "") ?? "",
       sexoNoProtegido: (form.get("sexoNoProtegido") as "si" | "no" | "") ?? "",
       its: (form.get("its") as "si" | "no" | "") ?? "",
+      itsExposicionOLab: (form.get("itsExposicionOLab") as "si" | "no" | "") ?? "",
       tabaquismo: (form.get("tabaquismo") as "si" | "no" | "") ?? "",
       acoProlongado: (form.get("acoProlongado") as "si" | "no" | "") ?? "",
       partos: (form.get("partos") as "gt3" | "lte3" | "") ?? "",
@@ -34,6 +38,9 @@ export default function TestPage() {
       cinturaCm: Number(form.get("cinturaCm") ?? 0),
       icc: Number(form.get("icc") ?? 0),
       ict: Number(form.get("ict") ?? 0),
+      resistenciaInsulina: (form.get("resistenciaInsulina") as "si" | "no" | "") ?? "",
+      dislipidemia: (form.get("dislipidemia") as "si" | "no" | "") ?? "",
+      useHighResourceVariables: hasFacilidades,
     });
 
     setScore(total);
@@ -177,7 +184,11 @@ export default function TestPage() {
           <section className={styles.section}>
             <h2>Facilidades de acceso</h2>
             <div className={styles.switchRow}>
-              <p>¿Tienes acceso a las siguientes facilidades?</p>
+              <p>
+                ¿Tienes acceso a las siguientes facilidades? En caso de no
+                tener acceso, no se activan estos campos y el resultado será
+                menos certero.
+              </p>
               <label className={styles.switch} aria-label="Acceso a facilidades">
                 <input
                   type="checkbox"
@@ -191,20 +202,40 @@ export default function TestPage() {
             </div>
           </section>
 
-          {hasFacilidades ? (
-            <section className={styles.unlockedSection}>
-              <h2>Variables de entornos de altos recursos</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </section>
-          ) : (
-            <section className={styles.lockedSection}>
-              <h2>Variables de entornos de altos recursos</h2>
-              <p>
-                Activa el interruptor para desbloquear esta sección y ver las
-                variables de entornos de altos recursos.
-              </p>
-            </section>
-          )}
+          <section
+            className={`${styles.section} ${hasFacilidades ? styles.unlockedSection : styles.lockedSection}`}
+          >
+            <h2>Variables de entornos de altos recursos</h2>
+            <p className={styles.criteriaText}>
+              Estas variables amplían el cálculo cuando hay mayor capacidad
+              diagnóstica, sin crear una calculadora aparte.
+            </p>
+            <label>
+              Diagnóstico de laboratorio por infección de Chlamydia, Herpes
+              simple o Virus de inmunodeficiencia humana
+              <select name="itsExposicionOLab" disabled={!hasFacilidades}>
+                <option value="">Seleccionar</option>
+                <option value="si">Sí</option>
+                <option value="no">No</option>
+              </select>
+            </label>
+            <label>
+              Presencia de resistencia a la insulina
+              <select name="resistenciaInsulina" disabled={!hasFacilidades}>
+                <option value="">Seleccionar</option>
+                <option value="si">Sí</option>
+                <option value="no">No</option>
+              </select>
+            </label>
+            <label>
+              Presencia de dislipidemia
+              <select name="dislipidemia" disabled={!hasFacilidades}>
+                <option value="">Seleccionar</option>
+                <option value="si">Sí</option>
+                <option value="no">No</option>
+              </select>
+            </label>
+          </section>
 
           <div className={styles.actions}>
             <button type="submit">Calcular riesgo</button>
@@ -213,7 +244,10 @@ export default function TestPage() {
         </form>
 
         {score !== null ? (
-          <p className={styles.result}>Resultado {score} puntos {getRiskLevel(score)}</p>
+          <p className={styles.result}>
+            Resultado {score} / {hasFacilidades ? baseMaxScore + highResourceExtraMaxScore : baseMaxScore} puntos{" "}
+            {getRiskLevel(score, hasFacilidades)}
+          </p>
         ) : null}
       </main>
     </div>
