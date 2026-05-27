@@ -82,6 +82,76 @@
   font-size: 0.95rem;
 }
 
+.radioGroup {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.radioOption {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px !important;
+  color: #204b5a;
+  font-size: 0.94rem;
+  font-weight: 500;
+  border: 1px solid #bfd4db;
+  border-radius: 999px;
+  padding: 6px 12px 6px 10px;
+  background: #fff;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.radioOption input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 2px solid #7ea6b3;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.radioOption input[type="radio"]::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.15s ease;
+  background: #0f6078;
+}
+
+.radioOption:has(input[type="radio"]:checked) {
+  border-color: #0f6078;
+  background: #eef8fc;
+  box-shadow: 0 0 0 3px rgba(15, 96, 120, 0.12);
+}
+
+.radioOption input[type="radio"]:checked {
+  border-color: #0f6078;
+}
+
+.radioOption input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.radioOption:has(input[type="radio"]:focus-visible) {
+  outline: 2px solid #0f6078;
+  outline-offset: 2px;
+}
+
+.radioOption:has(input[type="radio"]:disabled) {
+  opacity: 0.6;
+  background: #f1f4f6;
+  cursor: not-allowed;
+}
+
 .section input,
 .section select {
   border: 1px solid #b1ced7;
@@ -152,12 +222,6 @@
 
 .switch input:checked + .slider::before {
   transform: translateX(20px);
-}
-
-.switchState {
-  min-width: 20px;
-  font-weight: 700;
-  color: #0d2e3a;
 }
 
 .unlockedSection {

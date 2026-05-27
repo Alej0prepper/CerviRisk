@@ -78,56 +78,86 @@ export default function TestPage() {
             <h2>Factores conductuales y antecedentes</h2>
             <label>
               Edad de inicio de relaciones sexuales &lt; 15
-              <select name="inicioPrecoz">
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="inicioPrecoz" value="si" />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="inicioPrecoz" value="no" />
+                  No
+                </label>
+              </span>
             </label>
 
             <label>
               Número de parejas sexuales &gt; 5
-              <select name="numeroParejas">
-                <option value="">Seleccionar</option>
-                <option value="gt5">Sí</option>
-                <option value="lte5">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="numeroParejas" value="gt5" />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="numeroParejas" value="lte5" />
+                  No
+                </label>
+              </span>
             </label>
 
             <label>
               Sexo no protegido frecuente
-              <select name="sexoNoProtegido">
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="sexoNoProtegido" value="si" />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="sexoNoProtegido" value="no" />
+                  No
+                </label>
+              </span>
             </label>
 
             <label>
               Antecedentes de ITS (infecciones de transmisión sexual)
-              <select name="its">
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="its" value="si" />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="its" value="no" />
+                  No
+                </label>
+              </span>
             </label>
 
             <label>
               Tabaquismo actual o previo
-              <select name="tabaquismo">
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="tabaquismo" value="si" />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="tabaquismo" value="no" />
+                  No
+                </label>
+              </span>
             </label>
 
             <label>
               Uso de anticonceptivos orales &gt; 5 años
-              <select name="acoProlongado">
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="acoProlongado" value="si" />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="acoProlongado" value="no" />
+                  No
+                </label>
+              </span>
             </label>
           </section>
 
@@ -135,20 +165,30 @@ export default function TestPage() {
             <h2>Factores clínicos y biológicos</h2>
             <label>
               Número de partos &gt; 3
-              <select name="partos">
-                <option value="">Seleccionar</option>
-                <option value="gt3">Sí</option>
-                <option value="lte3">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="partos" value="gt3" />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="partos" value="lte3" />
+                  No
+                </label>
+              </span>
             </label>
 
             <label>
               Estado PVH 16/18 (virus del papiloma humano, genotipos 16 y 18)
-              <select name="pvh1618">
-                <option value="">Seleccionar</option>
-                <option value="positivo">Positivo</option>
-                <option value="negativo">Negativo</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="pvh1618" value="positivo" />
+                  Positivo
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="pvh1618" value="negativo" />
+                  Negativo
+                </label>
+              </span>
             </label>
           </section>
 
@@ -198,7 +238,6 @@ export default function TestPage() {
                 />
                 <span className={styles.slider} />
               </label>
-              <span className={styles.switchState}>{hasFacilidades ? "Sí" : "No"}</span>
             </div>
           </section>
 
@@ -213,27 +252,62 @@ export default function TestPage() {
             <label>
               Diagnóstico de laboratorio por infección de Chlamydia, Herpes
               simple o Virus de inmunodeficiencia humana
-              <select name="itsExposicionOLab" disabled={!hasFacilidades}>
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input
+                    type="radio"
+                    name="itsExposicionOLab"
+                    value="si"
+                    disabled={!hasFacilidades}
+                  />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input
+                    type="radio"
+                    name="itsExposicionOLab"
+                    value="no"
+                    disabled={!hasFacilidades}
+                  />
+                  No
+                </label>
+              </span>
             </label>
             <label>
               Presencia de resistencia a la insulina
-              <select name="resistenciaInsulina" disabled={!hasFacilidades}>
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input
+                    type="radio"
+                    name="resistenciaInsulina"
+                    value="si"
+                    disabled={!hasFacilidades}
+                  />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input
+                    type="radio"
+                    name="resistenciaInsulina"
+                    value="no"
+                    disabled={!hasFacilidades}
+                  />
+                  No
+                </label>
+              </span>
             </label>
             <label>
               Presencia de dislipidemia
-              <select name="dislipidemia" disabled={!hasFacilidades}>
-                <option value="">Seleccionar</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-              </select>
+              <span className={styles.radioGroup}>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="dislipidemia" value="si" disabled={!hasFacilidades} />
+                  Sí
+                </label>
+                <label className={styles.radioOption}>
+                  <input type="radio" name="dislipidemia" value="no" disabled={!hasFacilidades} />
+                  No
+                </label>
+              </span>
             </label>
           </section>
 
