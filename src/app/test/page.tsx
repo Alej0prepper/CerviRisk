@@ -8,6 +8,13 @@ import styles from "./test.module.css";
 export default function TestPage() {
   const [score, setScore] = useState<number | null>(null);
   const [adiposidadDetected, setAdiposidadDetected] = useState<boolean | null>(null);
+  const [hasFacilidades, setHasFacilidades] = useState(false);
+
+  function getRiskLevel(points: number): string {
+    if (points <= 10) return "bajo riesgo";
+    if (points <= 15) return "riesgo medio";
+    return "alto riesgo";
+  }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -167,6 +174,38 @@ export default function TestPage() {
             </label>
           </section>
 
+          <section className={styles.section}>
+            <h2>Facilidades de acceso</h2>
+            <div className={styles.switchRow}>
+              <p>¿Tienes acceso a las siguientes facilidades?</p>
+              <label className={styles.switch} aria-label="Acceso a facilidades">
+                <input
+                  type="checkbox"
+                  name="accesoFacilidades"
+                  checked={hasFacilidades}
+                  onChange={(event) => setHasFacilidades(event.target.checked)}
+                />
+                <span className={styles.slider} />
+              </label>
+              <span className={styles.switchState}>{hasFacilidades ? "Sí" : "No"}</span>
+            </div>
+          </section>
+
+          {hasFacilidades ? (
+            <section className={styles.unlockedSection}>
+              <h2>Variables de entornos de altos recursos</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </section>
+          ) : (
+            <section className={styles.lockedSection}>
+              <h2>Variables de entornos de altos recursos</h2>
+              <p>
+                Activa el interruptor para desbloquear esta sección y ver las
+                variables de entornos de altos recursos.
+              </p>
+            </section>
+          )}
+
           <div className={styles.actions}>
             <button type="submit">Calcular riesgo</button>
             <Link href="/">Volver al overview</Link>
@@ -174,10 +213,7 @@ export default function TestPage() {
         </form>
 
         {score !== null ? (
-          <p className={styles.result}>
-            Tienes {score} puntos. Exceso de adiposidad:{" "}
-            {adiposidadDetected ? "sí (suma +2)" : "no (suma 0)"}.
-          </p>
+          <p className={styles.result}>Resultado {score} puntos {getRiskLevel(score)}</p>
         ) : null}
       </main>
     </div>

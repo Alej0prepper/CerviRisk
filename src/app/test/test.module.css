@@ -98,6 +98,101 @@
   align-items: center;
 }
 
+.switchRow {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #204b5a;
+}
+
+.switchRow p {
+  margin: 0;
+  flex: 1;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 32px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border-radius: 99px;
+  background: #c0c9ce;
+  transition: background 0.2s ease;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.switch input:checked + .slider {
+  background: #34c759;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+.switchState {
+  min-width: 20px;
+  font-weight: 700;
+  color: #0d2e3a;
+}
+
+.unlockedSection {
+  border: 1px dashed #83b7c6;
+  border-radius: 14px;
+  background: #f0fbff;
+  padding: 18px;
+}
+
+.unlockedSection h2 {
+  color: #0d2e3a;
+  margin-bottom: 8px;
+}
+
+.unlockedSection p {
+  color: #325a69;
+}
+
+.lockedSection {
+  border: 1px dashed #adb8bd;
+  border-radius: 14px;
+  background: #f4f6f7;
+  padding: 18px;
+  opacity: 0.75;
+}
+
+.lockedSection h2 {
+  color: #5b6e78;
+  margin-bottom: 8px;
+}
+
+.lockedSection p {
+  color: #6a7f88;
+}
+
 .actions button,
 .actions a {
   border: 1px solid #0f6078;
@@ -148,5 +243,10 @@
   .actions button,
   .actions a {
     text-align: center;
+  }
+
+  .switchRow {
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 }
